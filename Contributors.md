@@ -16,10 +16,11 @@
 * Italian: [Roby1164](https://github.com/Roby1164)
 * Polish: [KITT3000](https://github.com/KITT3000)
 * Portuguese: [Admilson](https://github.com/Admilson), [neekavis](https://github.com/neekavis)
-* Russian: [Gonimy-Vetrom](https://github.com/Gonimy-Vetrom), [Kurbackiy](https://github.com/Kurbackiy)
+* Russian: [Gonimy-Vetrom](https://github.com/Gonimy-Vetrom), [Kurbackiy](https://github.com/Kurbackiy), [Rijtim1](https://github.com/Rijtim1)
 * Spanish: [KCHARRO](https://github.com/KCHARRO), [aorek](https://github.com/aorek)
 * Swedish: [piplarsson](https://github.com/piplarsson)
 * Turkish: [HakanGorkem](https://github.com/HakanGorkem)
+* undefined: [Rijtim1](https://github.com/Rijtim1)
 
 Logo Design by Finals Farming
 
