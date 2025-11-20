@@ -272,6 +272,10 @@
     <text name="CP_vehicle_setting_unloadOnFirstHeadland_tooltip" text="L'autista chiamerà lo scaricatore a fine lavoro"/>
     <text name="CP_vehicle_setting_strawSwath_title" text="Andana paglia"/>
     <text name="CP_vehicle_setting_strawSwath_tooltip" text="Abilita/disabilita l'andana paglia o la disabilita solo ad inizio campo"/>
+    <text name="CP_vehicle_setting_pipeOffsetX_title" text="Compensazione del tubo X"/>
+    <text name="CP_vehicle_setting_pipeOffsetX_tooltip" text="Compensazione del tubo X"/>
+    <text name="CP_vehicle_setting_pipeOffsetZ_title" text="Compensazione del tubo Z"/>
+    <text name="CP_vehicle_setting_pipeOffsetZ_tooltip" text="Compensazione del tubo Z"/>
     <text name="CP_vehicle_setting_callUnloaderPercent_title" text="Chiama lo scaricatore al:"/>
     <text name="CP_vehicle_setting_callUnloaderPercent_tooltip" text="Chiamare lo scaricatore quando il livello di riempimento della macchina è superiore a questo valore."/>
     <text name="CP_vehicle_setting_strawSwath_onlyCenter" text="Inizio campo disabilitato"/>
@@ -407,6 +411,10 @@
     <text name="CP_global_setting_infoTextHudActive_active_hide_without_message" text="Attivo ma invisibile senza messaggio"/>
     <text name="CP_global_setting_infoTextHudPlayerMouseActive_title" text="Interazione mouse fuori veicolo"/>
     <text name="CP_global_setting_infoTextHudPlayerMouseActive_tooltip" text="Abilita/disabilita l'interazione del mouse all'esterno di un veicolo."/>
+    <text name="CP_global_setting_isHudMoveable_title" text="Hud mobile"/>
+    <text name="CP_global_setting_isHudMoveable_tooltip" text="Abilita/disabilita la possibilità di spostare l'HUD."/>
+    <text name="CP_global_setting_isInfoTextHudMoveable_title" text="Il testo informativo HUD è mobile"/>
+    <text name="CP_global_setting_isInfoTextHudMoveable_tooltip" text="Abilita/disabilita la possibilità di spostare l'HUD del testo informativo."/>
     <text name="CP_global_setting_preferCustomFields_title" text="Preferire il campo personalizzato"/>
     <text name="CP_global_setting_preferCustomFields_tooltip" text="Utilizzare il campo personalizzato, anche se è presente il campo originale."/>
     <text name="CP_global_setting_distanceUnit_title" text="Unità distanza"/>

@@ -356,7 +356,8 @@ function AIDriveStrategyShovelSiloLoader:getDriveData(dt, vX, vY, vZ)
             self:setMaxSpeed(0)
         else 
             if self.shovelController:isHighDumpShovel() and 
-                not self.shovelController:isDischarging() then
+                not self.shovelController:isDischarging() and 
+                self.targetTrailer ~= nil then
                 --- Makes sure we move slightly forwards, 
                 --- as the high dump offset might not work for
                 --- unloading of the complete shovel.
@@ -609,7 +610,7 @@ function AIDriveStrategyShovelSiloLoader:onPathfindingFailed(controller,
     if self.state == self.states.DRIVING_ALIGNMENT_COURSE then 
         local course = self:getRememberedCourseAndIx()
         local fm = self:getFrontAndBackMarkers()
-        lastContext:ignoreFruit()
+        lastContext:ignoreFruit(true)
         controller:findPathToWaypoint(lastContext, course, 
             1, 0, -(fm + 4), 1)
     elseif self.state == self.states.DRIVING_TO_UNLOAD_POSITION then 

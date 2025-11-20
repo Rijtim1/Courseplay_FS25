@@ -272,6 +272,10 @@
     <text name="CP_vehicle_setting_unloadOnFirstHeadland_tooltip" text="La batteuse appellera une remorque à la première fourrière."/>
     <text name="CP_vehicle_setting_strawSwath_title" text="Andains de paille"/>
     <text name="CP_vehicle_setting_strawSwath_tooltip" text="Active/Désactive les andains de paille ou les désactive uniquement dans les fourrières."/>
+    <text name="CP_vehicle_setting_pipeOffsetX_title" text="Pipe offset X"/>
+    <text name="CP_vehicle_setting_pipeOffsetX_tooltip" text="Pipe offset X"/>
+    <text name="CP_vehicle_setting_pipeOffsetZ_title" text="Pipe offset Z"/>
+    <text name="CP_vehicle_setting_pipeOffsetZ_tooltip" text="Pipe offset Z"/>
     <text name="CP_vehicle_setting_callUnloaderPercent_title" text="Appel pour un déchargement à "/>
     <text name="CP_vehicle_setting_callUnloaderPercent_tooltip" text="Appelle une benne en attente lorsque la trémie de la récolteuse dépasse cette valeur."/>
     <text name="CP_vehicle_setting_strawSwath_onlyCenter" text="Désactivés dans les fourrières"/>
@@ -396,8 +400,8 @@
     <text name="CP_global_setting_expertModeActive_tooltip" text="Affiche/Masque des réglages avancés supplémentaires."/>
     <text name="CP_global_setting_controllerHudSelected_title" text="ATH compatible manette"/>
     <text name="CP_global_setting_controllerHudSelected_tooltip" text="L'ATH (interface du CP en jeu) est utilisable avec une manette."/>
-    <text name="CP_global_setting_showActionEventHelp_title" text="Notification des actions CP"/>
-    <text name="CP_global_setting_showActionEventHelp_tooltip" text="Affiche les notifications lors des événements courseplay (CP)."/>
+    <text name="CP_global_setting_showActionEventHelp_title" text="Afficher l'affectation des touches"/>
+    <text name="CP_global_setting_showActionEventHelp_tooltip" text="Active ou désactive l'affichage des affectations de touches."/>
     <text name="CP_global_setting_showsAllActiveCourses_title" text="Afficher les courses actives"/>
     <text name="CP_global_setting_showsAllActiveCourses_tooltip" text="Affiche les courses actives sur la carte."/>
     <text name="CP_global_setting_drawOntoTheHudMap_title" text="Afficher les courses actives sur la minimap"/>
@@ -407,6 +411,10 @@
     <text name="CP_global_setting_infoTextHudActive_active_hide_without_message" text="Active but invisible without message"/>
     <text name="CP_global_setting_infoTextHudPlayerMouseActive_title" text="Utilisation du curseur étendue"/>
     <text name="CP_global_setting_infoTextHudPlayerMouseActive_tooltip" text="Active ou désactive la gestion du curseur pour les autres mods utilisant également le curseur pour les textes d'information en dehors des véhicules. Améliore la compatibilité avec les mods de type VehicleInfo."/>
+    <text name="CP_global_setting_isHudMoveable_title" text="Hud is moveable"/>
+    <text name="CP_global_setting_isHudMoveable_tooltip" text="Enables/disables the possiblity to move the hud."/>
+    <text name="CP_global_setting_isInfoTextHudMoveable_title" text="Info text hud is moveable"/>
+    <text name="CP_global_setting_isInfoTextHudMoveable_tooltip" text="Enables/disables the possiblity to move the info text hud."/>
     <text name="CP_global_setting_preferCustomFields_title" text="Détection prioritaire des champs perso."/>
     <text name="CP_global_setting_preferCustomFields_tooltip" text="Sélectionne en priorité un champ personnalisé si celui-ci est à cheval sur un champ déjà existant."/>
     <text name="CP_global_setting_distanceUnit_title" text="Unité de distance"/>

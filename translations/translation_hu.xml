@@ -272,6 +272,10 @@
     <text name="CP_vehicle_setting_unloadOnFirstHeadland_tooltip" text="A kombájn az első fordulóban hívja a kirakodót."/>
     <text name="CP_vehicle_setting_strawSwath_title" text="Szalma rendrakás"/>
     <text name="CP_vehicle_setting_strawSwath_tooltip" text="Engedélyezi/letiltja a szalma rendet, vagy csak a táblavégeken tiltja le."/>
+    <text name="CP_vehicle_setting_pipeOffsetX_title" text="Pipe offset X"/>
+    <text name="CP_vehicle_setting_pipeOffsetX_tooltip" text="Pipe offset X"/>
+    <text name="CP_vehicle_setting_pipeOffsetZ_title" text="Pipe offset Z"/>
+    <text name="CP_vehicle_setting_pipeOffsetZ_tooltip" text="Pipe offset Z"/>
     <text name="CP_vehicle_setting_callUnloaderPercent_title" text="Hívás előtti szint"/>
     <text name="CP_vehicle_setting_callUnloaderPercent_tooltip" text="Rakodó hívása a beállított szint felett."/>
     <text name="CP_vehicle_setting_strawSwath_onlyCenter" text="Tiltás a fordulósávon"/>
@@ -407,6 +411,10 @@
     <text name="CP_global_setting_infoTextHudActive_active_hide_without_message" text="Csak üzenet esetén látható"/>
     <text name="CP_global_setting_infoTextHudPlayerMouseActive_title" text="Kattintás az infóablakban"/>
     <text name="CP_global_setting_infoTextHudPlayerMouseActive_tooltip" text="Engedélyezi a jármüválasztást az infóablakból."/>
+    <text name="CP_global_setting_isHudMoveable_title" text="Hud is moveable"/>
+    <text name="CP_global_setting_isHudMoveable_tooltip" text="Enables/disables the possiblity to move the hud."/>
+    <text name="CP_global_setting_isInfoTextHudMoveable_title" text="Info text hud is moveable"/>
+    <text name="CP_global_setting_isInfoTextHudMoveable_tooltip" text="Enables/disables the possiblity to move the info text hud."/>
     <text name="CP_global_setting_preferCustomFields_title" text="Felhasználói szántóföld előnyben"/>
     <text name="CP_global_setting_preferCustomFields_tooltip" text="Válassza a felhasználói szántóföldet ha ugyanott egy beépített föld is van."/>
     <text name="CP_global_setting_distanceUnit_title" text="Távolság egység"/>

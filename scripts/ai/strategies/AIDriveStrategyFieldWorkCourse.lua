@@ -24,6 +24,7 @@ AIDriveStrategyFieldWorkCourse = CpObject(AIDriveStrategyCourse)
 
 AIDriveStrategyFieldWorkCourse.myStates = {
     WORKING = {},
+    PREPARING = {},
     WAITING_FOR_LOWER = {},
     WAITING_FOR_LOWER_DELAYED = {},
     WAITING_FOR_STOP = {},
@@ -89,17 +90,9 @@ function AIDriveStrategyFieldWorkCourse:start(course, startIx, jobParameters)
         self:debug('Close enough to start waypoint %d, no alignment course needed', startIx)
         self:startCourse(course, startIx)
         self.state = self.states.INITIAL
-        self:prepareForFieldWork()
     end
     --- Store a reference to the original generated course
     self.originalGeneratedFieldWorkCourse = self.vehicle:getFieldWorkCourse()
-end
-
---- If the strategy needs a field polygon to work, it won't transition out of the INITIAL state
---- until the field detection, an asynchronous process that may have started only when the job was started, is finished.
----@return boolean true if the strategy needs the field polygon to work
-function AIDriveStrategyFieldWorkCourse:needsFieldPolygon()
-    return false
 end
 
 --- Make sure all implements are in the working state
@@ -147,7 +140,6 @@ end
 
 --- This is the interface to the Giant's AIFieldWorker specialization, telling it the direction and speed
 function AIDriveStrategyFieldWorkCourse:getDriveData(dt, vX, vY, vZ)
-
     self:updateFieldworkOffset(self.course)
     self:updateLowFrequencyImplementControllers()
     Markers.refreshMarkerNodes(self.vehicle, self.measuredBackDistance)
@@ -165,6 +157,17 @@ function AIDriveStrategyFieldWorkCourse:getDriveData(dt, vX, vY, vZ)
     end
     ----------------------------------------------------------------
     if self.state == self.states.INITIAL then
+        -- We need a separate phase for preparing to make sure that the
+        --   * onAIFieldWorkerStart,
+        --   * onAIFieldWorkerPrepareForWork,
+        --   * onAIImplementStartLine
+        -- events are generated one by one, one in each update loop so that at the end of the loop,
+        -- AIFieldWorker:updateAIFieldWorker() triggers a onAIFieldWorkerActive event.
+        -- This makes sure that all implements are lowered and started correctly in multiplayer as well.
+        self:setMaxSpeed(0)
+        self:prepareForFieldWork()
+        self.state = self.states.PREPARING
+    elseif self.state == self.states.PREPARING then
         self:setMaxSpeed(0)
         self:startWaitingForLower()
         self:lowerImplements()
@@ -329,7 +332,7 @@ function AIDriveStrategyFieldWorkCourse:onWaypointChange(ix, course)
     self:calculateTightTurnOffset()
     if not self.state ~= self.states.TURNING
             and self.course:isTurnStartAtIx(ix) then
-        if self.state == self.states.INITIAL then
+        if self.state == self.states.INITIAL or self.state == self.states.PREPARING then
             self:debug('Waypoint change (%d) to turn start right after starting work, lowering implements.', ix)
             self:startWaitingForLower()
             self:lowerImplements()
@@ -392,7 +395,7 @@ function AIDriveStrategyFieldWorkCourse:startTurn(ix)
     local fm, bm = self:getFrontAndBackMarkers()
     self.ppc:setShortLookaheadDistance()
     self.turnContext = TurnContext(self.vehicle, self.course, ix, ix + 1, self.turnNodes, self:getWorkWidth(), fm, bm,
-            self:getTurnEndSideOffset(), self:getTurnEndForwardOffset())
+            self:getTurnEndSideOffset(self.course:isHeadlandTurnAtIx(ix + 1)), self:getTurnEndForwardOffset())
     if AITurn.canMakeKTurn(self.vehicle, self.turnContext, self.workWidth, self:isTurnOnFieldActive()) then
         self.aiTurn = KTurn(self.vehicle, self, self.ppc, self.proximityController, self.turnContext, self.workWidth)
     else
@@ -484,11 +487,11 @@ function AIDriveStrategyFieldWorkCourse:startAlignmentTurn(fieldWorkCourse, star
         alignmentCourse = self:createAlignmentCourse(fieldWorkCourse, startIx)
     end
     self.ppc:setShortLookaheadDistance()
-    self:prepareForFieldWork()
     if alignmentCourse then
+        self:prepareForFieldWork()
         local fm, bm = self:getFrontAndBackMarkers()
         self.turnContext = RowStartOrFinishContext(self.vehicle, fieldWorkCourse, startIx, startIx, self.turnNodes,
-                self:getWorkWidth(), fm, bm, self:getTurnEndSideOffset(), self:getTurnEndForwardOffset())
+                self:getWorkWidth(), fm, bm, self:getTurnEndSideOffset(false), self:getTurnEndForwardOffset())
         self.workStarter = StartRowOnly(self.vehicle, self, self.ppc, self.turnContext, alignmentCourse)
         self.state = self.states.DRIVING_TO_WORK_START_WAYPOINT
         self:startCourse(self.workStarter:getCourse(), 1)
@@ -496,7 +499,6 @@ function AIDriveStrategyFieldWorkCourse:startAlignmentTurn(fieldWorkCourse, star
         self:debug('Could not create alignment course to first up/down row waypoint, continue without it')
         self:startCourse(fieldWorkCourse, startIx)
         self.state = self.states.INITIAL
-        self:prepareForFieldWork()
     end
 end
 
@@ -505,7 +507,9 @@ function AIDriveStrategyFieldWorkCourse:returnToStartAfterDone()
     if not self.pathfinder or not self.pathfinder:isActive() then
         self.pathfindingStartedAt = g_currentMission.time
         self:debug('Return to first waypoint')
-        local context = PathfinderContext(self.vehicle):allowReverse(self:getAllowReversePathfinding())
+        local context = PathfinderContext(self.vehicle)
+                :allowReverse(self:getAllowReversePathfinding())
+                :ignoreFruit(not self.settings.avoidFruit:getValue())
         local result
         self.pathfinder, result = PathfinderUtil.startPathfindingFromVehicleToWaypoint(
                 self.fieldWorkCourse, 1, 0, 0, context)
@@ -542,10 +546,12 @@ function AIDriveStrategyFieldWorkCourse:startPathfindingToNextWaypoint(ix)
     self:debug('start pathfinding to waypoint %d', ix + 1)
     local fm, bm = self:getFrontAndBackMarkers()
     self.turnContext = RowStartOrFinishContext(self.vehicle, self.fieldWorkCourse, ix + 1, ix + 1,
-            self.turnNodes, self:getWorkWidth(), fm, bm, self:getTurnEndSideOffset(), self:getTurnEndForwardOffset())
+            self.turnNodes, self:getWorkWidth(), fm, bm, self:getTurnEndSideOffset(false), self:getTurnEndForwardOffset())
     local _, steeringLength = AIUtil.getSteeringParameters(self.vehicle)
     local targetNode, zOffset = self.turnContext:getTurnEndNodeAndOffsets(steeringLength)
-    local context = PathfinderContext(self.vehicle):allowReverse(self:getAllowReversePathfinding())
+    local context = PathfinderContext(self.vehicle)
+            :allowReverse(self:getAllowReversePathfinding())
+            :ignoreFruit(not self.settings.avoidFruit:getValue())
     self.waypointToContinueOnFailedPathfinding = ix + 1
     self.pathfinderController:registerListeners(self, self.onPathfindingDoneToNextWaypoint,
             self.onPathfindingFailedToNextWaypoint)
@@ -553,7 +559,7 @@ function AIDriveStrategyFieldWorkCourse:startPathfindingToNextWaypoint(ix)
     self.state = self.states.WAITING_FOR_PATHFINDER
     -- to have a course set while waiting for the pathfinder
     self:startCourse(self.fieldWorkCourse, self.waypointToContinueOnFailedPathfinding)
-    self.pathfinderController:findPathToNode(context, targetNode, 0, zOffset)
+    self.pathfinderController:findPathToNode(context, targetNode, 0, zOffset, 1)
 end
 
 function AIDriveStrategyFieldWorkCourse:onPathfindingFailedToNextWaypoint(controller, lastContext, wasLastRetry, currentRetryAttempt)
@@ -574,7 +580,10 @@ function AIDriveStrategyFieldWorkCourse:onPathfindingDoneToNextWaypoint(controll
         self:debug('Pathfinding to next waypoint finished')
         self:startCourseToWorkStart(course)
     else
-        self:onPathfindingFailedToNextWaypoint()
+        self:debug('Pathfinding to next waypoint failed, continue directly at waypoint %d', self.waypointToContinueOnFailedPathfinding)
+        self:startWaitingForLower()
+        self:lowerImplements()
+        self:startCourse(self.fieldWorkCourse, self.waypointToContinueOnFailedPathfinding)
     end
 end
 
@@ -605,12 +614,17 @@ function AIDriveStrategyFieldWorkCourse:startConnectingPath(ix)
         -- set up the turn context for the work starter to use when the pathfinding succeeds
         local fm, bm = self:getFrontAndBackMarkers()
         self.turnContext = RowStartOrFinishContext(self.vehicle, self.fieldWorkCourse, targetWaypointIx, targetWaypointIx,
-                self.turnNodes, self:getWorkWidth(), fm, bm, self:getTurnEndSideOffset(), self:getTurnEndForwardOffset())
+                self.turnNodes, self:getWorkWidth(), fm, bm, self:getTurnEndSideOffset(false), self:getTurnEndForwardOffset())
         local _, steeringLength = AIUtil.getSteeringParameters(self.vehicle)
         local targetNode, zOffset = self.turnContext:getTurnEndNodeAndOffsets(steeringLength)
         local context = PathfinderContext(self.vehicle):allowReverse(self:getAllowReversePathfinding())
-        context:preferredPath(connectingPath):mustBeAccurate(true)
-        self.rawConnectingPath = Course(self.vehicle, connectingPath, true)
+        context:preferredPath(connectingPath):mustBeAccurate(true):ignoreFruit(not self.settings.avoidFruit:getValue())
+        if #connectingPath < 2 then
+            self:debug('Connecting path has only %d waypoint, use an alignment course instead', #connectingPath)
+            self.workStarterCourse = self:createAlignmentCourse(self.fieldWorkCourse, targetWaypointIx)
+        else
+            self.workStarterCourse = Course(self.vehicle, connectingPath, true)
+        end
         self.pathfinderController:registerListeners(self, self.onPathfindingDoneToConnectingPathEnd,
                 self.onPathfindingFailedToConnectingPathEnd)
         self:debug('Connecting path has %d waypoints, start pathfinding to target waypoint %d, zOffset %.1f',
@@ -618,15 +632,15 @@ function AIDriveStrategyFieldWorkCourse:startConnectingPath(ix)
         self.state = self.states.WAITING_FOR_PATHFINDER
         -- to have a course set while waiting for the pathfinder and make sure that the course known to the PPC
         -- is the same as the one we are using
-        self:startCourse(self.rawConnectingPath, 1)
+        self:startCourse(self.workStarterCourse, 1)
         self.pathfinderController:findPathToNode(context, targetNode, 0, zOffset, 1)
     end
 end
 
 function AIDriveStrategyFieldWorkCourse:onPathfindingFailedToConnectingPathEnd(controller, lastContext, wasLastRetry, currentRetryAttempt)
     if wasLastRetry then
-        self:debug('Pathfinding to end of connecting path failed again, use the connecting path as is')
-        self:startCourseToWorkStart(self.rawConnectingPath)
+        self:debug('Pathfinding to end of connecting path failed again, use the connecting path/alignment course instead')
+        self:startCourseToWorkStart(self.workStarterCourse)
     else
         self:debug('Pathfinding to end of connecting path failed once, retry with disabled collisions')
         lastContext:collisionMask(0)
@@ -639,8 +653,8 @@ function AIDriveStrategyFieldWorkCourse:onPathfindingDoneToConnectingPathEnd(con
         self:debug('Pathfinding to end of connecting path finished')
         self:startCourseToWorkStart(course)
     else
-        self:debug('Pathfinding to end of connecting path failed, use the connecting path as is')
-        self:startCourseToWorkStart(self.rawConnectingPath)
+        self:debug('Pathfinding to end of connecting path failed, use the connecting path/alignment course instead')
+        self:startCourseToWorkStart(self.workStarterCourse)
     end
 end
 
@@ -665,7 +679,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------
 --- Dynamic parameters (may change while driving)
 -----------------------------------------------------------------------------------------------------------------------
-function AIDriveStrategyFieldWorkCourse:getTurnEndSideOffset()
+function AIDriveStrategyFieldWorkCourse:getTurnEndSideOffset(isHeadlandTurn)
     return 0
 end
 
