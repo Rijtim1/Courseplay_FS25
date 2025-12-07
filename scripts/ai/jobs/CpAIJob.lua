@@ -263,7 +263,7 @@ function CpAIJob:detectFieldBoundary()
 		return false, false, g_i18n:getText("CP_error_not_on_field")
 	end
 	if vehicle:cpIsFieldBoundaryDetectionRunning() then
-		return false, false, g_i18n:getText("CP_error_field_detection_still_running")
+		return false, true, g_i18n:getText("CP_error_field_detection_still_running")
 	end
 	local x, z = vehicle:cpGetFieldPosition()
 	if x == tx and z == tz then

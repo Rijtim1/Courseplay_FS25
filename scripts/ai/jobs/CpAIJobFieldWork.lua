@@ -138,10 +138,11 @@ function CpAIJobFieldWork:validate(farmId)
     end
     local vehicle = self.vehicleParameter:getVehicle()
 
-    --- Only check the valid field position in the in game menu.
+    --- Only check the valid field boundary in the in game menu.
     if not self.isDirectStart then
         isValid, isRunning, errorMessage = self:detectFieldBoundary()
-        if not isValid then
+        if not isValid and not isRunning then
+            self:debug("no boundary and no field detection is running");
             return isValid, errorMessage
         end
         self.cpJobParameters:validateSettings()
