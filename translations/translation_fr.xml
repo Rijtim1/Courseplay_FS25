@@ -17,8 +17,8 @@
     <text name="CP_infoText" text="Courseplay(%s): Pour toute demande d'assistance, signalement de bug ou suivi des mises à jour, rendez vous sur le site officiel : https://github.com/Courseplay/Courseplay_FS22."/>
     <text name="CP_error_no_course" text="Générez ou chargez une course avant de démarrer la tâche"/>
     <text name="CP_error_could_not_generate_course" text="Impossible de générer la course. Plus d'informations dans le journal."/>
-    <text name="CP_error_field_detection_still_running" text="Field detection still running."/>
-    <text name="CP_error_field_detection_failed" text="Field detection failed."/>
+    <text name="CP_error_field_detection_still_running" text="La détection du champ est toujours en cours."/>
+    <text name="CP_error_field_detection_failed" text="La détection du champ a échoué."/>
     <text name="CP_error_not_on_field" text="Le point de départ n'est pas dans un champ"/>
     <text name="CP_error_unloader_to_far_away_from_field" text="Benne ou transbordeur trop éloigné(e) du champ."/>
     <text name="CP_error_start_position_to_far_away_from_field" text="Position de départ trop éloignée du champ."/>
@@ -120,7 +120,7 @@
     <text name="CP_ai_messageErrorCutterNotSupported" text="L'ouvrier %s a interrompu son travail - impossible d'attacher la barre de coupe !"/>
     <text name="CP_ai_messageErrorAutomaticCutterAttachNotActive" text="L'ouvrier %s a interrompu son travail - l'attachement auto de la barre de coupe est désactivé !"/>
     <text name="CP_ai_messageErrorWrongMissionFruitType" text="L'ouvrier %s a interrompu son travail - mauvais type de contenu pour ce type de travail !"/>
-    <text name="CP_ai_messageErrorTooFarFromField" text="Vehicle is too far away from the field."/>
+    <text name="CP_ai_messageErrorTooFarFromField" text="Le véhicule est trop éloigné du champ."/>
     <!---->
     <!--AI fieldwork task descriptions-->
     <!---->
@@ -177,16 +177,16 @@
     <text name="CP_vehicle_setting_fuelSave_tooltip" text="Eteint le moteur lors de phases d'attente."/>
     <text name="CP_vehicle_setting_stopAtEnd_title" text="Arrêt à l'arrivée"/>
     <text name="CP_vehicle_setting_stopAtEnd_tooltip" text="Arrêt du véhicule lorsqu'il est arrivé."/>
-    <text name="CP_vehicle_setting_useJps_title" text="Use JPS pathfinder"/>
-    <text name="CP_vehicle_setting_useJps_tooltip" text="Use jump point search for longer distances, wich results in faster pathfinding."/>
-    <text name="CP_vehicle_setting_penaltyFactor_title" text="Pathfinder penalty factor"/>
-    <text name="CP_vehicle_setting_penaltyFactor_tooltip" text="A higher value will take longer, but the path stays more on the field and outside the fruit."/>
+    <text name="CP_vehicle_setting_useJps_title" text="Utiliser le calculateur de trajectoire JPS"/>
+    <text name="CP_vehicle_setting_useJps_tooltip" text="Utilise la recherche par points de saut pour les longues distances, ce qui accélère le calcul de trajectoire."/>
+    <text name="CP_vehicle_setting_penaltyFactor_title" text="Facteur de pénalité du calculateur de trajectoire"/>
+    <text name="CP_vehicle_setting_penaltyFactor_tooltip" text="Une valeur plus élevée prendra plus de temps, mais le trajet restera davantage sur le champ et en dehors des cultures."/>
     <text name="CP_vehicle_setting_allowReversePathfinding_title" text="Autoriser marche AR pour le pathfinding"/>
     <text name="CP_vehicle_setting_allowReversePathfinding_tooltip" text="Si nécessaire, autorise le pathfinding à générer des trajets contenant des marches arrières."/>
     <text name="CP_vehicle_setting_allowPathfinderTurns_title" text="Autoriser les détours pour le pathfinding"/>
     <text name="CP_vehicle_setting_allowPathfinderTurns_tooltip" text="Si nécessaire, autorise le pathfinding à générer des trajets avec des détours, par exemple pour éviter des obstacles ou des cultures"/>
-    <text name="CP_vehicle_setting_loopTurnsOnHeadland_title" text="Loop turn on headland"/>
-    <text name="CP_vehicle_setting_loopTurnsOnHeadland_tooltip" text="Instead of performing a normal turn on headland, the vehicle will drive a loop. The first headland should have round corners!"/>
+    <text name="CP_vehicle_setting_loopTurnsOnHeadland_title" text="Virage en boucle sur fourrière"/>
+    <text name="CP_vehicle_setting_loopTurnsOnHeadland_tooltip" text="Au lieu d'effectuer un virage normal sur la fourrière, le véhicule effectuera une boucle. La première fourrière doit avoir des angles arrondis !"/>
     <text name="CP_vehicle_setting_foldImplementAtEnd_title" text="Replier l'outil à la fin de la course"/>
     <text name="CP_vehicle_setting_foldImplementAtEnd_tooltip" text="Active/Désactive le repli automatique de l'outil à la fin de la course."/>
     <text name="CP_vehicle_setting_returnToStart_title" text="Retourner au point de départ"/>
@@ -201,8 +201,8 @@
     <text name="CP_vehicle_setting_lowerImplementEarly_late" text="tard"/>
     <text name="CP_vehicle_setting_turnOnField_title" text="Manoeuvrer uniquement dans le champ"/>
     <text name="CP_vehicle_setting_turnOnField_tooltip" text="Manoeuvres uniquement dans le champ. Impossible avec certains outils."/>
-    <text name="CP_vehicle_setting_restartCourseAtEnd_title" text="Restart course at the end"/>
-    <text name="CP_vehicle_setting_restartCourseAtEnd_tooltip" text="Restart the fieldwork course at the 1st waypoint."/>
+    <text name="CP_vehicle_setting_restartCourseAtEnd_title" text="Redémarrer le parcours à la fin"/>
+    <text name="CP_vehicle_setting_restartCourseAtEnd_tooltip" text="Redémarrer le parcours au 1er point"/>
     <text name="CP_vehicle_setting_avoidFruit_title" text="Eviter les cultures"/>
     <text name="CP_vehicle_setting_avoidFruit_tooltip" text="L'IA essayera d'éviter le plus possible de rouler dans les cultures."/>
     <text name="CP_vehicle_setting_toolOffsetX_title" text="Décalage horizontal de l'outil"/>
@@ -274,10 +274,10 @@
     <text name="CP_vehicle_setting_unloadOnFirstHeadland_tooltip" text="La batteuse appellera une remorque à la première fourrière."/>
     <text name="CP_vehicle_setting_strawSwath_title" text="Andains de paille"/>
     <text name="CP_vehicle_setting_strawSwath_tooltip" text="Active/Désactive les andains de paille ou les désactive uniquement dans les fourrières."/>
-    <text name="CP_vehicle_setting_pipeOffsetX_title" text="Pipe offset X"/>
-    <text name="CP_vehicle_setting_pipeOffsetX_tooltip" text="Pipe offset X"/>
-    <text name="CP_vehicle_setting_pipeOffsetZ_title" text="Pipe offset Z"/>
-    <text name="CP_vehicle_setting_pipeOffsetZ_tooltip" text="Pipe offset Z"/>
+    <text name="CP_vehicle_setting_pipeOffsetX_title" text="Décalage de la goulotte X"/>
+    <text name="CP_vehicle_setting_pipeOffsetX_tooltip" text="Décalage de la goulotte X"/>
+    <text name="CP_vehicle_setting_pipeOffsetZ_title" text="Décalage de la goulotte Z"/>
+    <text name="CP_vehicle_setting_pipeOffsetZ_tooltip" text="Décalage de la goulotte Z"/>
     <text name="CP_vehicle_setting_callUnloaderPercent_title" text="Appel pour un déchargement à "/>
     <text name="CP_vehicle_setting_callUnloaderPercent_tooltip" text="Appelle une benne en attente lorsque la trémie de la récolteuse dépasse cette valeur."/>
     <text name="CP_vehicle_setting_strawSwath_onlyCenter" text="Désactivés dans les fourrières"/>
@@ -410,13 +410,13 @@
     <text name="CP_global_setting_drawOntoTheHudMap_tooltip" text="Affiche les courses actives sur la mini-carte de l'ATH."/>
     <text name="CP_global_setting_infoTextHudActive_title" text="Afficher la fenêtre d'informations"/>
     <text name="CP_global_setting_infoTextHudActive_tooltip" text="Affiche une fenêtre supplémentaire d'informations supplémentaires."/>
-    <text name="CP_global_setting_infoTextHudActive_active_hide_without_message" text="Active but invisible without message"/>
+    <text name="CP_global_setting_infoTextHudActive_active_hide_without_message" text="Actif mais invisible sans message"/>
     <text name="CP_global_setting_infoTextHudPlayerMouseActive_title" text="Utilisation du curseur étendue"/>
     <text name="CP_global_setting_infoTextHudPlayerMouseActive_tooltip" text="Active ou désactive la gestion du curseur pour les autres mods utilisant également le curseur pour les textes d'information en dehors des véhicules. Améliore la compatibilité avec les mods de type VehicleInfo."/>
-    <text name="CP_global_setting_isHudMoveable_title" text="Hud is moveable"/>
-    <text name="CP_global_setting_isHudMoveable_tooltip" text="Enables/disables the possiblity to move the hud."/>
-    <text name="CP_global_setting_isInfoTextHudMoveable_title" text="Info text hud is moveable"/>
-    <text name="CP_global_setting_isInfoTextHudMoveable_tooltip" text="Enables/disables the possiblity to move the info text hud."/>
+    <text name="CP_global_setting_isHudMoveable_title" text="Le HUD est déplaçable"/>
+    <text name="CP_global_setting_isHudMoveable_tooltip" text="Active/désactive la possibilité de déplacer le HUD."/>
+    <text name="CP_global_setting_isInfoTextHudMoveable_title" text="La fenêtre d'information est déplaçable"/>
+    <text name="CP_global_setting_isInfoTextHudMoveable_tooltip" text="Active/désactive la possibilité de déplacer la fenêtre d'information."/>
     <text name="CP_global_setting_preferCustomFields_title" text="Détection prioritaire des champs perso."/>
     <text name="CP_global_setting_preferCustomFields_tooltip" text="Sélectionne en priorité un champ personnalisé si celui-ci est à cheval sur un champ déjà existant."/>
     <text name="CP_global_setting_distanceUnit_title" text="Unité de distance"/>
@@ -467,9 +467,9 @@ La course est automatiquement sauvegardée à la fermeture de l'éditeur et remp
     <!--Course editor-->
     <!---->
     <text name="CP_editor_course_title" text="Editeur de course"/>
-    <text name="CP_editor_custom_field_title" text="Custom field editor : %s"/>
+    <text name="CP_editor_custom_field_title" text="Editeur de champ personnalisé : %s"/>
     <text name="CP_editor_change_lane_offset" text="Modifie le décalage de la ligne sélectionnée(%s)"/>
-    <text name="CP_editor_save_changes" text="Should the changes to %s be saved?"/>
+    <text name="CP_editor_save_changes" text="Sauvegarder les changements de %s ?"/>
     <text name="CP_editor_course_basic_delete_title" text="Supprimer les points"/>
     <text name="CP_editor_course_basic_delete_primary_text" text="principal"/>
     <text name="CP_editor_course_basic_delete_secondary_text" text="secondaire"/>
@@ -507,7 +507,7 @@ La course est automatiquement sauvegardée à la fermeture de l'éditeur et remp
     <text name="CP_infoTexts_workFinished" text="a terminé son travail"/>
     <text name="CP_infoTexts_drivingToCombine" text="en route vers la batteuse"/>
     <text name="CP_infoTexts_drivingToSelfUnload" text="en route vers la benne"/>
-    <text name="CP_infoTexts_waitingForFieldBoundaryDetection" text="Field detection"/>
+    <text name="CP_infoTexts_waitingForFieldBoundaryDetection" text="Détection du champ"/>
     <text name="CP_infoTexts_outOfMoney" text="Plus d'argent disponible"/>
     <text name="CP_infoTexts_waitForRainToFinish" text="Attend que la pluie s'arrête pour continuer"/>
     <text name="CP_infoTexts_waitForSnowToClear" text="Attend que la neige fonde"/>
@@ -522,7 +522,7 @@ La course est automatiquement sauvegardée à la fermeture de l'éditeur et remp
     <text name="CP_infoTexts_errorWrongMissionFruitType" text="Culture incompatible avec le travail demandé"/>
     <text name="CP_infoTexts_errorPalletsAreFull" text="Toutes les palettes sont remplies"/>
     <text name="CP_infoTexts_errorPalletsAreEmpty" text="Aucune palette disponible"/>
-    <text name="CP_infoTexts_errorTooFarFromField" text="Vehicle is too far away from the field."/>
+    <text name="CP_infoTexts_errorTooFarFromField" text="Le véhicule est trop éloigné du champ."/>
     <!---->
     <!--Custom field manager-->
     <!---->
@@ -550,7 +550,7 @@ La course est automatiquement sauvegardée à la fermeture de l'éditeur et remp
     <!--Help menu-->
     <!---->
     <text name="CP_help_title" text="Courseplay"/>
-    <text name="CP_help_subTitle" text="Un mod pour Farming Simulator 22 "/>
+    <text name="CP_help_subTitle" text="Un mod pour Farming Simulator 25 "/>
     <text name="CP_help_page_blank" text=""/>
     <text name="CP_help_page_General_title" text="Informations générales"/>
     <text name="CP_help_page_GeneralBase_text" text="
@@ -777,14 +777,14 @@ Les contours du champ personnalisé apparaissent dans l'onglet des ouvriers.
 Cliquez sur son nom pour le supprimer ou le renommer.
 "/>
     <text name="CP_help_page_customFieldDraw_text" text="
-The second option is to draw the custom field on the map of the CP AI menu.
-To start the drawing, hit they button on the bottom left corner or hit corresponding key.
-After that a text appears on the top of your screen.
-Start by clicking the right mouse button for setting the start position.
-By holding the shift key, the line will be set straight in 90° angles.
-The next clicks will create lines to the previous click.
-Once you draw a second line, the course will be automatically closed. You can still draw more lines to define the field even further.
-You don't need to draw the last line to the start, as it gets generated automatically straight to the start.
+La deuxième option consiste à dessiner le champ personnalisé sur la carte du menu IA CP.
+Pour commencer le dessin, appuyez sur le bouton dans le coin inférieur gauche ou appuyez sur la touche correspondante.
+Après cela, un texte apparaît en haut de votre écran.
+Commencez par cliquer sur le bouton droit de la souris pour définir la position de départ.
+En maintenant la touche Maj enfoncée, la ligne sera tracée droite selon des angles de 90°.
+Les clics suivants créeront des lignes vers le clic précédent.
+Une fois que vous avez tracé une deuxième ligne, le parcours sera automatiquement fermé. Vous pouvez toujours tracer d'autres lignes pour définir le champ encore plus précisément.
+Vous n'avez pas besoin de tracer la dernière ligne jusqu'au départ, car elle est générée automatiquement en ligne droite jusqu'au point de départ.
 "/>
     <text name="CP_help_page_multiConvoy_title" text="Outils multiples et convoi"/>
     <text name="CP_help_page_multitoolBasic_text" text="
