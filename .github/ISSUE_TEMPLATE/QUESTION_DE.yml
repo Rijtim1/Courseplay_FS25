@@ -46,7 +46,8 @@ body:
     - 8.0.2.3
     - 8.1.0.0
     - 8.1.0.1
-    default: 25
+    - 8.1.0.2
+    default: 26
   validations:
     required: true
 - type: dropdown
